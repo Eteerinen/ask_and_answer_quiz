@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<h1>Do you really know about Finland?</h1>
+		<div><h2><div id="show_title"></div></h2></div>
+		<div>
+			<!-- Show answers -->
+			<form id="quiz">
+				<div>
+					<label class="option">
+						<input type="radio" name="answer" value="A"/>
+						<h3 id="option_a"></h3>
+					</label>
+				</div>
+				<div>
+					<label class="option">
+						<input type="radio" name="answer" value="B"/>
+						<h3 id="option_b"></h3>
+					</label>
+				</div>
+				<div>
+					<label class="option">
+						<input type="radio" name="answer" value="C"/>
+						<h3 id="option_c"></h3>
+					</label>
+				</div>
+				<div>
+					<label class="option">
+						<input type="radio" name="answer" value="D"/>
+						<h3 id="option_d"></h3>
+					</label>
+				</div>
+			</form>
+		</div>
+		<h2><div id="show_next" style="cursor:pointer;">Next</div></h2>
+		
+		<script>
+			let questions = {
+			  1001: {
+			    name: "What's the capital of Finland?",
+			    all_answers: ["Helsinki", "Tampere", "Turku", "Oulu"],
+			    correct_answer: "Helsinki",
+			  },
+			  1002: {
+			    name: "What is the official currency of Finland?",
+			    all_answers: ["Swedish krona", "US dollar", "Euro", "Norwegian krone"],
+			    correct_answer: "Euro",
+			  },
+			  1003: {
+			    name: "What is the national animal of Finland?",
+			    all_answers: ["Brown bear", "Wolf", "Reindeer", "Arctic fox"],
+			    correct_answer: "Brown bear",
+			  },
+			  1004: {
+			    name: "What is the official language of Finland besides Finnish?",
+			    all_answers: ["German", "Danish", "Icelandic", "Swedish"],
+			    correct_answer: "Swedish",
+			  },
+			  1005: {
+			    name: "What is a traditional Finnish sauna used for?",
+			    all_answers: ["Cooking food", "Relaxing and sweating in the heat", "Storing clothes", "Sleeping overnight"],
+			    correct_answer: "Relaxing and sweating in the heat",
+			  },
+			};
+			
+			let currentId = 1001;
+			function showTitle(){
+				document.getElementById("show_title").textContent = questions[currentId].name;
+			}
+			
+			function showAnswers(){
+				document.getElementById("option_a").textContent = "A: " + questions[currentId]["all_answers"][0];
+				document.getElementById("option_b").textContent = "B: " + questions[currentId]["all_answers"][1];
+				document.getElementById("option_c").textContent = "C: " + questions[currentId]["all_answers"][2];
+				document.getElementById("option_d").textContent = "D: " + questions[currentId]["all_answers"][3];
+			}
+			
+			// current_question is questions[index], already has index, not the whole Object
+			function getCorrectAnswerLetter(current_question){
+				let correct_answer = current_question["correct_answer"];
+				let answers = current_question["all_answers"];
+				const index = answers.indexOf(correct_answer);		// Position
+				let letter_option = "";
+				switch(index){
+					case 0:
+						letter_option = "A";
+						break;
+					case 1:
+						letter_option = "B";
+						break;
+					case 2:
+						letter_option = "C";
+						break;
+					case 3:
+						letter_option = "D";
+						break;
+				}
+				return letter_option + ": " + correct_answer;
+			}
+			
+			showTitle();		// Call the function and show the first question
+			showAnswers();
+			
+			document.getElementById("show_next").addEventListener("click", function(){
+				currentId ++;
+				console.log(currentId);
+				if(questions[currentId] === undefined){
+					document.getElementById("show_title").textContent = "Finished!";
+					document.getElementById("option_a").textContent = "No options!";
+					document.getElementById("option_a").textContent = "No niin!";
+					document.getElementById("option_a").textContent = "No niin!";
+					document.getElementById("option_a").textContent = "No niin!";
+					return;
+				}else{
+					showTitle();
+					showAnswers();
+				}
+			});
+		</script>
+	</body>
+</html>
