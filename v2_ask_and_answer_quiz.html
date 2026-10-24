@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="style.css">
+		<meta charset="utf-8">
+		<title>Ask and Answer Quiz</title>
+	</head>
+	<body>
+		<h1>Do you really know about Finland?</h1>
+		<div><h2><div id="show_title"></div></h2></div>
+		<div>
+			<!-- Show answers -->
+			<form id="quiz">
+				<div>
+					<label class="option">
+						<input type="radio" name="answer" value="A"/>
+						<h3 id="option_a"></h3>
+					</label>
+				</div>
+				<div>
+					<label class="option">
+						<input type="radio" name="answer" value="B"/>
+						<h3 id="option_b"></h3>
+					</label>
+				</div>
+				<div>
+					<label class="option">
+						<input type="radio" name="answer" value="C"/>
+						<h3 id="option_c"></h3>
+					</label>
+				</div>
+				<div>
+					<label class="option">
+						<input type="radio" name="answer" value="D"/>
+						<h3 id="option_d"></h3>
+					</label>
+				</div>
+			</form>
+		</div>
+		<h2><div id="show_result"></div></h2>
+		<div><button id="show_next"><h2>Next</h2></button></div>
+		
+		<script>
+			let questions = {
+			  1001: {
+			    name: "What's the capital of Finland?",
+			    all_answers: ["Helsinki", "Tampere", "Turku", "Oulu"],
+			    correct_answer: "Helsinki",
+			  },
+			  1002: {
+			    name: "What is the official currency of Finland?",
+			    all_answers: ["Swedish krona", "US dollar", "Euro", "Norwegian krone"],
+			    correct_answer: "Euro",
+			  },
+			  1003: {
+			    name: "What is the national animal of Finland?",
+			    all_answers: ["Brown bear", "Wolf", "Reindeer", "Arctic fox"],
+			    correct_answer: "Brown bear",
+			  },
+			  1004: {
+			    name: "What is the official language of Finland besides Finnish?",
+			    all_answers: ["German", "Danish", "Icelandic", "Swedish"],
+			    correct_answer: "Swedish",
+			  },
+			  1005: {
+			    name: "What is a traditional Finnish sauna used for?",
+			    all_answers: ["Cooking food", "Relaxing and sweating in the heat", "Storing clothes", "Sleeping overnight"],
+			    correct_answer: "Relaxing and sweating in the heat",
+			  },
+			  1006: {
+			    name: "What is the name of Finland's famous Christmas figure?",
+			    all_answers: ["Thor", "Odin", "Joulupukki", "Moomintroll"],
+			    correct_answer: "Joulupukki",
+			  },
+			  1007: {
+			    name: "Which country shares a border with Finland?",
+			    all_answers: ["Portugal", "Spain", "Poland", "Sweden"],
+			    correct_answer: "Sweden",
+			  },
+			  1008: {
+			    name: "What are the colours of the Finnish flag?",
+			    all_answers: ["Blue and white", "Red and white", "Green and yellow", "Blue and yellow"],
+			    correct_answer: "Blue and white",
+			  },
+			  1009: {
+			    name: "Which city is known as the home of Santa Claus in Finland?",
+			    all_answers: ["Espoo", "Rovaniemi", "Lahti", "Porvoo"],
+			    correct_answer: "Rovaniemi",
+			  },
+			  1010: {
+			    name: "What is the Finnish word for \"thank you\"?",
+			    all_answers: ["Hei", "Anteeksi", "Kiitos", "Kyllä"],
+			    correct_answer: "Kiitos",
+			  },
+			  1011: {
+			    name: "Which animal is commonly associated with Finnish Lapland?",
+			    all_answers: ["Camel", "Kangaroo", "Lion", "Reindeer"],
+			    correct_answer: "Reindeer",
+			  },
+			  1012: {
+			    name: "What is the name of Finland's famous children's characters who live in Moominvalley?",
+			    all_answers: ["The Moomins", "The Smurfs", "The Minions", "The Teletubbies"],
+			    correct_answer: "The Moomins",
+			  },
+			  1013: {
+			    name: "Which sea lies to the west of Finland?",
+			    all_answers: ["Mediterranean Sea", "Baltic Sea", "Black Sea", "Red Sea"],
+			    correct_answer: "Baltic Sea",
+			  },
+			  1014: {
+			    name: "What is the Finnish word for \"hello\"?",
+			    all_answers: ["Näkemiin", "Kiitos", "Hei", "Anteeksi"],
+			    correct_answer: "Hei",
+			  },
+			  1015: {
+			    name: "Which of these is a famous Finnish composer?",
+			    all_answers: ["Ludwig van Beethoven", "Wolfgang Amadeus Mozart", "Frédéric Chopin", "Jean Sibelius"],
+			    correct_answer: "Jean Sibelius",
+			  },
+			  1016: {
+			    name: "What is the name of Finland's national anthem?",
+			    all_answers: ["Maamme", "Finlandia Forever", "Suomi Song", "Helsinki"],
+			    correct_answer: "Maamme",
+			  },
+			  1017: {
+			    name: "What natural feature is Finland especially famous for?",
+			    all_answers: ["Deserts", "Tropical rainforests", "Lakes and forests", "Active volcanoes"],
+			    correct_answer: "Lakes and forests",
+			  },
+			  1018: {
+			    name: "Which of these cities is in Finland?",
+			    all_answers: ["Stockholm", "Tampere", "Copenhagen", "Oslo"],
+			    correct_answer: "Tampere",
+			  },
+			  1019: {
+			    name: "What is the Finnish word for \"snow\"?",
+			    all_answers: ["Vesi", "Metsä", "Järvi", "Lumi"],
+			    correct_answer: "Lumi",
+			  },
+			  1020: {
+			    name: "What is the date of Finland's national day of independence?",
+			    all_answers: ["6 December", "1 January", "25 December", "1 May"],
+			    correct_answer: "6 December",
+			  },
+			};
+			
+			let currentId = 1001;
+			function showTitle(){
+				document.getElementById("show_title").textContent = questions[currentId].name;
+			}
+			
+			function showAnswers(){
+				document.getElementById("option_a").textContent = "A: " + questions[currentId]["all_answers"][0];
+				document.getElementById("option_b").textContent = "B: " + questions[currentId]["all_answers"][1];
+				document.getElementById("option_c").textContent = "C: " + questions[currentId]["all_answers"][2];
+				document.getElementById("option_d").textContent = "D: " + questions[currentId]["all_answers"][3];
+			}
+			
+			// current_question is already has index such as 1001, not the whole Object
+			function getCorrectAnswerLetter(current_question){
+				let correct_answer = current_question["correct_answer"];
+				let answers = current_question["all_answers"];
+				const index = answers.indexOf(correct_answer);		// Position
+				let letter_option = "";
+				switch(index){
+					case 0:
+						letter_option = "A";
+						break;
+					case 1:
+						letter_option = "B";
+						break;
+					case 2:
+						letter_option = "C";
+						break;
+					case 3:
+						letter_option = "D";
+						break;
+				}
+				return letter_option;
+			}
+			
+			showTitle();		// Show the first question
+			showAnswers();
+			
+			// Check your answer
+			let check_quiz = document.getElementById("quiz");
+			let result_box = document.getElementById("show_result");
+			let next_btn = document.getElementById("show_next");
+			
+			// Calculate the score
+			let score = 0;
+			let correct_num = 0;
+			let points = 5;		// Per question
+			let correct_array = Array(20).fill(0);
+			
+			function calculateScore(){
+				for(let i = 0; i < 20; i ++){
+					if(correct_array[i] === 1){
+						correct_num ++;
+						score = score + correct_array[i] * 5;
+					}
+				}
+				return score + "---" + correct_num;
+			}
+			
+			console.log(correct_array);
+			
+			check_quiz.addEventListener("change", (event) => {
+				const your_option = event.target.value; // "A", "B", "C", or "D"
+				const correct_answer = getCorrectAnswerLetter(questions[currentId]);
+				let index = currentId - 1001;
+				if(your_option === correct_answer){
+					// Recent index
+					correct_array[index] = 1;
+					console.log(correct_array[index]);
+					console.log("T");
+				}else{
+					// result_box.textContent = "You're wrong!"
+					correct_array[index] = 0;
+					console.log(correct_array[index]);
+					console.log("F");
+				}
+
+			});
+			
+			// Show next
+			document.getElementById("show_next").addEventListener("click", function(){
+				currentId ++;
+				console.log(currentId);
+				// After showing the last question
+				if(questions[currentId] === undefined){
+					// No way to check because of no correct answer at all
+					document.getElementById("show_title").textContent = "Finished!";
+					document.getElementById("option_a").textContent = "";
+					document.getElementById("option_b").textContent = "";
+					document.getElementById("option_c").textContent = "";
+					document.getElementById("option_d").textContent = "";
+					console.log(correct_array);
+					console.log(calculateScore());
+					next_btn.disabled = true;
+					return;
+				}else{
+					showTitle();
+					showAnswers();
+					// Reflash
+					// result_box.textContent = "";
+					check_quiz.reset();
+				}
+			});
+		</script>
+	</body>
+</html>
