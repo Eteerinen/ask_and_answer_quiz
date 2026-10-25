@@ -231,10 +231,7 @@
 				if(questions[currentId] === undefined){
 					// No way to check because of no correct answer at all
 					document.getElementById("show_title").textContent = "Finished!";
-					document.getElementById("option_a").textContent = "";
-					document.getElementById("option_b").textContent = "";
-					document.getElementById("option_c").textContent = "";
-					document.getElementById("option_d").textContent = "";
+					check_quiz.hidden = true;
 					console.log(correct_array);
 					console.log(calculateScore());
 					next_btn.disabled = true;
