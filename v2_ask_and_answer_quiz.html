@@ -193,6 +193,15 @@
 			let points = 5;		// Per question
 			let correct_array = Array(20).fill(0);
 			
+			function calculateCorrectQuestions(){
+				for(let i = 0; i < 20; i ++){
+					if(correct_array[i] === 1){
+						correct_num ++;
+					}
+				}
+				return correct_num;
+			}
+			
 			function calculateScore(){
 				for(let i = 0; i < 20; i ++){
 					if(correct_array[i] === 1){
@@ -200,7 +209,7 @@
 						score = score + correct_array[i] * 5;
 					}
 				}
-				return score + "---" + correct_num;
+				return score;
 			}
 			
 			console.log(correct_array);
@@ -232,8 +241,13 @@
 					// No way to check because of no correct answer at all
 					document.getElementById("show_title").textContent = "Finished!";
 					check_quiz.hidden = true;
-					console.log(correct_array);
-					console.log(calculateScore());
+					// Show the result
+					let final_questions = calculateCorrectQuestions();
+					let final_score = calculateScore();
+					let sentence = "Your Score: " + final_score + " / 100 (" + final_questions + " of 20 correct)";
+					result_box.textContent = sentence;
+					console.log("Correct: " + calculateCorrectQuestions());
+					console.log("Your Score: " + calculateScore());
 					next_btn.disabled = true;
 					return;
 				}else{
