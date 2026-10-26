@@ -39,7 +39,7 @@
 		</div>
 		<div id="current_answer">
 			<h2>Your current answer is: </h2>
-			<h2 id="show_current">1</h2>
+			<h2 id="show_current"></h2>
 		</div>
 		<h2><div id="show_result"></div></h2>
 		<!-- Can't be clicked yet -->
@@ -228,8 +228,8 @@
 				const correct_answer = getCorrectAnswerLetter(questions[currentId]);
 				let index = currentId - 1001;
 				current_array[index] = your_option;
-				// Not sure if it's wrong
-				current_ans.textContent = your_option;
+				// !!!!!!!! Not sure if it's wrong
+				current_ans.textContent = current_array[index];
 				if(your_option === correct_answer){
 					// Recent index
 					correct_array[index] = 1;
@@ -244,7 +244,7 @@
 				console.log(current_array[index] + "!!!!");
 			});
 			
-			// Show next
+			// Click and Show Next
 			document.getElementById("show_next").addEventListener("click", function(){
 				currentId ++;
 				console.log(currentId);
@@ -261,13 +261,36 @@
 					console.log("Correct: " + calculateCorrectQuestions());
 					console.log("Your Score: " + calculateScore());
 					next_btn.disabled = true;
+					back_btn.disabled = true;
+					console.log(current_array);
 					return;
 				}else{
+					//Show the Question and Answer
 					showTitle();
 					showAnswers();
-					// Reflash
-					// result_box.textContent = "";
 					check_quiz.reset();
+					current_ans.textContent = "";
+				}
+			});
+			
+			// Click and Show Back
+			document.getElementById("show_back").addEventListener("click", function(){
+				console.log(currentId);
+				if(currentId === 1001){
+					console.log("Cannot be back now!");
+				}else{
+					currentId --;
+					showTitle();
+					showAnswers();
+					// Save the status
+					let saved_answer = current_array[currentId-1001];
+					current_ans.textContent = saved_answer;
+					// Clear the radio first
+					check_quiz.reset();
+					// Show the saved option from current answer array
+					if(saved_answer !== ""){
+						check_quiz.querySelector('input[value = "' + saved_answer +'"]').checked = true;
+					}
 				}
 			});
 		</script>
