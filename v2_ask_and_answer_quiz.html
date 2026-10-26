@@ -37,8 +37,14 @@
 				</div>
 			</form>
 		</div>
+		<div id="current_answer">
+			<h2>Your current answer is: </h2>
+			<h2 id="show_current">1</h2>
+		</div>
 		<h2><div id="show_result"></div></h2>
-		<div><button id="show_next"><h2>Next</h2></button></div>
+		<!-- Can't be clicked yet -->
+		<button id="show_back"><h2>Back</h2></button>
+		<button id="show_next"><h2>Next</h2></button>
 		
 		<script>
 			let questions = {
@@ -186,12 +192,17 @@
 			let check_quiz = document.getElementById("quiz");
 			let result_box = document.getElementById("show_result");
 			let next_btn = document.getElementById("show_next");
+			let back_btn = document.getElementById("show_back");
+			let current_ans = document.getElementById("show_current");
 			
 			// Calculate the score
 			let score = 0;
 			let correct_num = 0;
 			let points = 5;		// Per question
 			let correct_array = Array(20).fill(0);
+			let current_array = Array(20).fill("");
+			
+			console.log(current_array);
 			
 			function calculateCorrectQuestions(){
 				for(let i = 0; i < 20; i ++){
@@ -212,12 +223,13 @@
 				return score;
 			}
 			
-			console.log(correct_array);
-			
 			check_quiz.addEventListener("change", (event) => {
 				const your_option = event.target.value; // "A", "B", "C", or "D"
 				const correct_answer = getCorrectAnswerLetter(questions[currentId]);
 				let index = currentId - 1001;
+				current_array[index] = your_option;
+				// Not sure if it's wrong
+				current_ans.textContent = your_option;
 				if(your_option === correct_answer){
 					// Recent index
 					correct_array[index] = 1;
@@ -229,7 +241,7 @@
 					console.log(correct_array[index]);
 					console.log("F");
 				}
-
+				console.log(current_array[index] + "!!!!");
 			});
 			
 			// Show next
